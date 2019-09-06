@@ -1,0 +1,25 @@
+.goalsList {
+    margin: 20px;
+}
+
+.task {
+    margin-bottom: 10px;
+}
+
+.taskName {
+    margin: 0;
+    font-size: 28px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.taskName i {
+    font-size: 14px;
+    color: #00AA00;
+    margin: 7px;
+}
+
+.taskDescription {
+    font-size: 16px;
+    margin-left: 16px;
+}

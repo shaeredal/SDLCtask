@@ -1,0 +1,64 @@
+.logo {
+    position: absolute;
+    height: 178px;
+    width: 644px;
+    top: 50%;
+    left: 50%;
+    margin-top: -89px;
+    margin-left: -322px;
+}
+
+.logo a {
+    color: #FFFFFF;
+    font-size: 144px;
+    text-decoration: none;
+    transition: color 2s 0.02s ease;
+}
+
+.logo a:hover {
+    color: #00AA00;
+    transition: color 2s 0.02s ease;
+}
+
+.logo a p {
+    margin: 0;
+}
+
+
+
+.itralogo {
+    height: 120px;
+    width: 148px;
+    min-height: 120px;
+    min-width: 136px;
+    background-color: white;
+    border-radius: 80px 0;
+
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -60px;
+    margin-left: -71px;
+
+    transition: background-color 2s 0.02s ease;
+}
+
+.itralogo:hover {
+    background-color: #00AA00;
+    transition: background-color 2s 0.02s ease;
+}
+
+.itralogo-inner {
+    height: 60px;
+    width: 74px;
+    min-height: 60px;
+    min-width: 68px;
+    background-color: #222222;
+    border-radius: 40px 0;
+
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -30px;
+    margin-left: -37px;
+}

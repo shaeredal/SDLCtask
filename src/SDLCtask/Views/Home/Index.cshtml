@@ -1,20 +1,19 @@
 @model object
 
 @{
-    Layout = null;
+    ViewBag.Title = "Main Page";
+    Layout = "_Layout";
 }
 
-<!DOCTYPE html>
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/index.css">
+}
 
-<html>
-<head>
-    <link rel="stylesheet" href="~/css/home.css">
-    <title>SDLCtask</title>
-</head>
-<body>
-<div>
-    <p>Hello world!</p>
+<div class="logo">
+    <a href=@Url.Action("Goals", "Home")>
+        <div class="itralogo">
+            <div class="itralogo-inner"></div>
+        </div>
+    </a>
 </div>
-<script src="~/js/home.js"></script>
-</body>
-</html>

@@ -9,5 +9,10 @@ namespace SDLCtask.Controllers
         {
             return View();
         }
+
+        public IActionResult Goals()
+        {
+            return View();
+        }
     }
 }

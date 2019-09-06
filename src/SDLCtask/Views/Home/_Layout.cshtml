@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>@ViewBag.Title - SDLCtask</title>
+    <link rel="stylesheet" href="~/css/_layout.css">
+    
+    @RenderSection("Styles", false)
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+    <script src="~/js/home.js"></script>
+    <script src="https://kit.fontawesome.com/5e4a1a8ab9.js"></script>
+    @RenderSection("Scripts", false)
+</body>
+</html>
