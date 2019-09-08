@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDLCtask", "SDLCtask\SDLCtask.csproj", "{E89838A6-9FCF-4421-B955-8B14F9A37A9F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDLCtask.Tests", "SDLCtask.Tests\SDLCtask.Tests.csproj", "{B3182ED3-3E6E-4B04-973A-E8C7734EE89D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{E89838A6-9FCF-4421-B955-8B14F9A37A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E89838A6-9FCF-4421-B955-8B14F9A37A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E89838A6-9FCF-4421-B955-8B14F9A37A9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3182ED3-3E6E-4B04-973A-E8C7734EE89D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3182ED3-3E6E-4B04-973A-E8C7734EE89D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3182ED3-3E6E-4B04-973A-E8C7734EE89D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3182ED3-3E6E-4B04-973A-E8C7734EE89D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
