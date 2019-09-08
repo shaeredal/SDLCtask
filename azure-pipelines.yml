@@ -6,36 +6,64 @@ variables:
 trigger:
 - master
 
-pool:
-  vmImage: 'windows-latest'
-
-steps:
-- script: |
-    dotnet restore $(Build.SourcesDirectory)\src\SDLCtask.sln
-    dotnet build $(Build.SourcesDirectory)\src\SDLCtask.sln --configuration Release
-- task: DotNetCoreCLI@2
-  inputs:
-    command: publish
-    arguments: '--configuration Release --output publish_output'
-    projects: '$(Build.SourcesDirectory)\\src\\SDLCtask.sln'
-    publishWebProjects: false
-    modifyOutputPath: true
-    zipAfterPublish: false
-
-- script: ls -R
-- task: ArchiveFiles@2
-  displayName: "Archive files"
-  inputs:
-    rootFolderOrFile: "$(System.DefaultWorkingDirectory)/src/SDLCtask/publish_output/src"
-    includeRootFolder: false
-    archiveFile: "$(System.DefaultWorkingDirectory)/build$(Build.BuildId).zip"
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/build$(Build.BuildId).zip'
-    ArtifactName: 'drop'
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    connectionType: 'AzureRM'
-    azureSubscription: "$(azureSubscription)"
-    appType: 'functionApp'
-    webAppName: "$(functionappName)"
+stages:
+- stage: UnitTests
+  displayName: Unit Tests
+  jobs:
+  - job:
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - script: dotnet test $(Build.SourcesDirectory)/src/SDLCtask.Tests/SDLCtask.Tests.csproj
+- stage: Build
+  displayName: Build
+  dependsOn: UnitTests
+  jobs:
+  - job:
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - script: |
+        dotnet restore $(Build.SourcesDirectory)/src/SDLCtask.sln
+        dotnet build $(Build.SourcesDirectory)/src/SDLCtask.sln --configuration Release
+    - task: DotNetCoreCLI@2
+      displayName: Publish Output
+      inputs:
+        command: publish
+        arguments: '--configuration Release --output publish_output'
+        projects: '$(Build.SourcesDirectory)/src/SDLCtask.sln'
+        publishWebProjects: false
+        modifyOutputPath: true
+        zipAfterPublish: false
+    - task: ArchiveFiles@2
+      displayName: Archive files
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/src/SDLCtask/publish_output/src'
+        includeRootFolder: false
+        archiveFile: '$(System.ArtifactsDirectory)/build$(Build.BuildId).zip'
+    - task: PublishBuildArtifacts@1
+      displayName: Publish build artifacts
+      inputs:
+        PathtoPublish: '$(System.ArtifactsDirectory)'
+        ArtifactName: 'drop'
+- stage: Deploy
+  displayName: Deploy
+  dependsOn: Build
+  jobs:
+  - job:
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop'
+        downloadPath: '$(System.ArtifactsDirectory)'
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        connectionType: 'AzureRM'
+        azureSubscription: '$(azureSubscription)'
+        appType: 'functionApp'
+        webAppName: '$(functionappName)'
+        packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
