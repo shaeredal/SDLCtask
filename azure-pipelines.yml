@@ -23,9 +23,20 @@ stages:
     pool:
       vmImage: 'windows-latest'
     steps:
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'SonarCloud'
+        organization: 'shaeredal'
+        scannerMode: 'MSBuild'
+        projectKey: 'shaeredal_SDLCtask'
+        projectName: 'SDLCtask'
     - script: |
         dotnet restore $(Build.SourcesDirectory)/src/SDLCtask.sln
         dotnet build $(Build.SourcesDirectory)/src/SDLCtask.sln --configuration Release
+    - task: SonarCloudAnalyze@1
+    - task: SonarCloudPublish@1
+      inputs:
+        pollingTimeoutSec: '300'
     - task: DotNetCoreCLI@2
       displayName: Publish Output
       inputs:
